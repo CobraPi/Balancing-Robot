@@ -4,13 +4,8 @@
 typedef enum {
     IncomingMessageEcho = 0x00,
 
-    IncomingMessageSetRightMotorSpeed = 0x01,
-    IncomingMessageSetRightMotorDistance = 0x2,
-    IncomingMessageSetRightMotorAcceleration = 0x03,
-
-    IncomingMessageSetLeftMotorSpeed = 0x04,
-    IncomingMessageSetLeftMotorDistance = 0x05,
-    IncomingMessageSetLeftMotorAcceleration = 0x06,
+    IncomingMessageDriveMotors = 0x01,
+    IncomingMessageSetMotorAcceleration = 0x06,
     IncomingMessageCalibrateAccelerometer = 0x07,
     IncomingMessageRequestAccelerometerData = 0x08,
 } IncomingMessageType;

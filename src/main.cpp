@@ -35,8 +35,11 @@ AccelStepper left_motor(AccelStepper::FULL4WIRE, L_STEP, L_DIR);
 MultiStepper motors;
 
 void debug(char *message);
-void drive_motors(float left_speed);
+void drive_motors(float left_speed, int left_direction, int left_distance,
+                  float right_speed, int right_direction, int right_distance);
 void process_serial();
+void handle_echo(uint8_t *data, uint8_t length);
+void handle_drive_motors(uint8_t *data, uint8_t length);
 
 void setup() {
     Serial.begin(115200);
@@ -50,41 +53,65 @@ void setup() {
 
 
 void loop() {
-    int code, value, distance;
-    if (Serial.available() >= 1) {
-        code = Serial.read();
-        Serial.println(code);
-        //     value = Serial.read();
-        //distance = Serial.read();
-    }
-    switch(code) {
-        case 49:
-            right_motor.setSpeed(1000);
-            //right_motor.move(-800);
-            right_motor.run();
-            Serial.println("right");
-            break;
-        case 48:
-            left_motor.setSpeed(1000);
-            //left_motor.move(-800);
-            left_motor.run();
-            Serial.println("left");
-            break;
-        case 50:
-            long positions[2];
-            positions[0] = -1000;
-            positions[1] = 1000;
-            motors.moveTo(positions);
-            motors.run();
-            positions[0] = 0;
-            positions[1] = 0;
-            motors.moveTo(positions);
-            motors.run();
-            Serial.println("both");
-            break;
-    }
+    process_serial();
+    //debug("Testing");
  }
 
+void drive_motors(float left_speed, int left_direction, int left_distance,
+                  float right_speed, int right_direction, int right_distance) {
+
+    left_motor.setSpeed(left_speed);
+    right_motor.setSpeed(right_speed);
+    left_motor.moveTo(left_distance);
+    right_motor.moveTo(right_distance);
+    left_motor.run();
+    right_motor.run();
+}
+
+void process_serial() {
+    uint8_t code, length, data[length];
+    if (Serial.available() >= 2) {
+        code = (uint8_t) Serial.read();
+        length = (uint8_t) Serial.read();
+        data[length];
+        if (length > 0) {
+            Serial.readBytes(data, length);
+        }
+    }
+    switch (code) {
+        case IncomingMessageEcho:
+            handle_echo(data, length);
+            break;
+        case IncomingMessageDriveMotors:
+            handle_drive_motors(data, length);
+            break;
+    }
+}
+
+void handle_echo(uint8_t *data, uint8_t length) {
+    uint8_t msg[2];
+    msg[0] = OutgoingMessagePing;
+    msg[1] = 0;
+    Serial.write(msg, sizeof(msg));
+}
+
+// Format of motor data is:
+// {left_speed, left_distance, right_speed, right_distance}
+void handle_drive_motors(uint8_t *data, uint8_t length) {
+    float left_speed = (float) data[0];
+    int left_distance = data[1];
+    int left_direction = data[2];
+    float right_speed = (float) data[3];
+    int right_distance = data[4];
+    int right_direction = data[5];
+    left_motor.setSpeed(left_speed);
+    right_motor.setSpeed(right_speed);
+    left_motor.move(left_distance);
+    right_motor.move(right_distance);
+    left_motor.run();
+    right_motor.run();
+
+}
 
  void debug(char *message) {
     uint8_t len = strlen(message);

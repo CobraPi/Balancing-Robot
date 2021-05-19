@@ -1,5 +1,6 @@
 -I/Users/joey/Projects/Code/Balancing Robot/include
 -I/Users/joey/Projects/Code/Balancing Robot/src
+-I/Users/joey/Projects/Code/Balancing Robot/lib/SerialProtocol
 -I/Users/joey/Projects/Code/Balancing Robot/.pio/libdeps/uno/AccelStepper/src
 -I/Users/joey/Projects/Code/Balancing Robot/.pio/libdeps/uno/MPU6050/src
 -I/Users/joey/.platformio/packages/framework-arduino-avr/libraries/Wire/src

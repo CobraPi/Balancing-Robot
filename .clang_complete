@@ -1,12 +1,17 @@
 -I/Users/joey/Projects/Code/Balancing Robot/include
 -I/Users/joey/Projects/Code/Balancing Robot/src
+-I/Users/joey/Projects/Code/Balancing Robot/.pio/libdeps/uno/AccelStepper/src
+-I/Users/joey/Projects/Code/Balancing Robot/.pio/libdeps/uno/MPU6050/src
+-I/Users/joey/.platformio/packages/framework-arduino-avr/libraries/Wire/src
 -I/Users/joey/.platformio/packages/framework-arduino-avr/cores/arduino
 -I/Users/joey/.platformio/packages/framework-arduino-avr/variants/standard
+-I/Users/joey/Projects/Code/Balancing Robot/lib/AccelStepper/src
+-I/Users/joey/Projects/Code/Balancing Robot/lib/MPU6050/src
+-I/Users/joey/Projects/Code/Balancing Robot/lib/stepper
 -I/Users/joey/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src
 -I/Users/joey/.platformio/packages/framework-arduino-avr/libraries/HID/src
 -I/Users/joey/.platformio/packages/framework-arduino-avr/libraries/SPI/src
 -I/Users/joey/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src
--I/Users/joey/.platformio/packages/framework-arduino-avr/libraries/Wire/src
 -I/Users/joey/.platformio/packages/toolchain-atmelavr/lib/gcc/avr/7.3.0/include
 -I/Users/joey/.platformio/packages/toolchain-atmelavr/lib/gcc/avr/7.3.0/include-fixed
 -I/Users/joey/.platformio/packages/toolchain-atmelavr/avr/include
